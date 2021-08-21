@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/tread06/CineFacts-API/issues"
   },
-  "homepage": "https://github.com/tread06/CineFacts-API#readme"
+  "homepage": "https://github.com/tread06/CineFacts-API#readme",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
