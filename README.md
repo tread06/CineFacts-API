@@ -1,2 +1,2 @@
 # CineFacts API
- A Node..JS API
+ A Node.JS API
