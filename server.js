@@ -23,7 +23,6 @@ if(reqUrl.pathname != '/favicon.ico'){
 
 //assign documentation file path if requested
 if(reqUrl.searchParams.has('documentation')){
-    console.log("documentation request recieved");
     filePath = __dirname + '/documentation.html';
 }
 
@@ -39,4 +38,4 @@ fs.readFile(filePath, (err, data) => {
 
 }).listen(8080);
 
-console.log('My first Node test server is running on Port 8080.');
+console.log('CineFacts API server is running on port 8080.');
