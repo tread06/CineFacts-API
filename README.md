@@ -1,2 +1,2 @@
-# movie_api
+# CineFacts API
  A Node..JS API
