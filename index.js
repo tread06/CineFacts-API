@@ -1,31 +1,40 @@
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+const { json } = require('body-parser');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/cinefactsDB', { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+    console.log("Connected");
+}).catch((err) =>{
+    console.log(err);
+});
 
 const app = express();
 
 //console log
 app.use(morgan('common'));
 
+//body parser
+app.use(bodyParser.json());
+
 //access static files
 app.use(express.static('public'));
 
-
 //Get all movies
 app.get('/movies',(req, res) => {
-    //to do, get list from db
-    res.json({
-        movies: [
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-            {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"},
-        ]
+    Movies.find()
+    .then((movies) => {
+        return res.status(200).json(movies);
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
     });
 });
 
@@ -65,9 +74,65 @@ app.get('/directors/:name',(req, res) => {
 });
 
 //create new user
+/* Body JSON format
+{
+    ID: Integer,        _id
+    Username: String,   UserName
+    Password: String,   Password
+    Email: String,      Email
+    Birthday: Date      Birthday
+}*/
 app.post('/users',(req, res) => {
-    //to do: create user using body data
-    res.send("user created");
+/* using postman, sending this body:
+{
+    "ID": 1234,
+    "Username": "Jerry",
+    "Password": "password1234",
+    "Email": "Jerry@test.com",
+    "Birthday": "1999-03-10"
+}*/
+    console.log("Attempt to add: " + req.body.Username);
+    // logs "Jerry" as expected
+
+    Users.findOne({ UserName: req.body.Username }) //note: in the DB, Username is UserName.
+    .then((user) => {
+        if (user) {            
+            console.log(user);
+            /* always returns true and logs the first user, which is...
+            {
+                _id: new ObjectId("612da4b8b3c42b60d761ae9b"),
+                UserName: 'John',
+                Password: 'password1234',
+                Birthday: 1985-02-19T00:00:00.000Z,
+                FavoriteMovies: [
+                    new ObjectId("612d75bb7e144b08d5a5e4c6"),
+                    new ObjectId("612d75e97e144b08d5a5e4c7"),
+                    new ObjectId("612d88207e144b08d5a5e4d4")
+                ],
+                Email: 'John@test.com'
+            }*/
+            return res.status(400).send(req.body.Username + 'already exists');
+        } else {
+            Users
+            .create({
+                UserName: req.body.Username,
+                Password: req.body.Password,
+                Email: req.body.Email,
+                Birthday: req.body.Birthday
+            })
+            .then((user) =>{
+                console.log("User: "+user.UserName+ " was added");
+                res.status(201).json(user)})
+            .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+            })
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+    });
 });
 
 //update user name (name only)
@@ -78,8 +143,6 @@ app.put('/users/:user/:name',(req, res) => {
 });
 
 //add movie to user list
-//This may use a url param if the books are chosen from a list.
-//Assuming book data is in the body for now.
 app.post('/users/:user/movies',(req, res) => {
     //to do: get list from db using user id
     //update list
@@ -87,7 +150,6 @@ app.post('/users/:user/movies',(req, res) => {
 });
 
 //remove movie from user list
-//assuming that the movie is chosen from a list 
 app.delete('/users/:user/movies/:index',(req, res) => {
     //to do: get list from db using user id
     //remove at index
@@ -115,5 +177,4 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('An error occured.');
 });
-
 app.listen(8080);
