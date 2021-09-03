@@ -7,6 +7,7 @@ const { json } = require('body-parser');
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const app = express();
 
 mongoose.connect('mongodb://localhost:27017/cinefactsDB', { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => {
@@ -14,15 +15,14 @@ mongoose.connect('mongodb://localhost:27017/cinefactsDB', { useNewUrlParser: tru
 }).catch((err) =>{
     console.log(err);
 });
+mongoose.set('debug', true);
 
-const app = express();
 
-//console log
+
+//log request
 app.use(morgan('common'));
-
 //body parser
 app.use(bodyParser.json());
-
 //access static files
 app.use(express.static('public'));
 
@@ -97,7 +97,7 @@ app.post('/users',(req, res) => {
     Users.findOne({ UserName: req.body.Username }) //note: in the DB, Username is UserName.
     .then((user) => {
         if (user) {            
-            console.log(user);
+            console.log(user);            
             /* always returns true and logs the first user, which is...
             {
                 _id: new ObjectId("612da4b8b3c42b60d761ae9b"),
@@ -111,7 +111,7 @@ app.post('/users',(req, res) => {
                 ],
                 Email: 'John@test.com'
             }*/
-            return res.status(400).send(req.body.Username + 'already exists');
+            return res.status(400).send(req.body.Username + ' already exists');
         } else {
             Users
             .create({
