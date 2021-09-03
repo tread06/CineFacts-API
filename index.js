@@ -1,9 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
-//const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-//const { json } = require('body-parser');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -117,12 +115,9 @@ app.get('/users/:Username', (req, res) => {
 // Update a user's info, by username (issue: not a unique identifier)
 /* We’ll expect JSON in this format
 {
-    Username: String,
-    (required)
-    Password: String,
-    (required)
-    Email: String,
-    (required)
+    Username: String, (required)
+    Password: String, (required)
+    Email: String, (required)
     Birthday: Date
 }*/
 app.put('/users/:Username', (req, res) => {
