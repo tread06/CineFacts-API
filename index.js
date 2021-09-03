@@ -1,9 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-const { json } = require('body-parser');
+//const { json } = require('body-parser');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -16,10 +16,15 @@ mongoose.connect('mongodb://localhost:27017/cinefactsDB', { useNewUrlParser: tru
     console.log(err);
 });
 
-//log request
+//log requests
 app.use(morgan('common'));
-//body parser
-app.use(bodyParser.json());
+
+//body parsing
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+
 //access static files
 app.use(express.static('public'));
 
