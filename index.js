@@ -91,10 +91,12 @@ app.post('/users',(req, res) => {
     "Email": "Jerry@test.com",
     "Birthday": "1999-03-10"
 }*/
-    console.log("Attempt to add: " + req.body.Username);
+    
     // logs "Jerry" as expected
+    let params = {'UserName': req.body.Username};
+    console.log("query: " + params);
 
-    Users.findOne({ UserName: req.body.Username }) //note: in the DB, Username is UserName.
+    Users.findOne(params) //note: in the DB, Username is UserName.
     .then((user) => {
         if (user) {            
             console.log(user);            
