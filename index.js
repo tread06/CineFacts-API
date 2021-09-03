@@ -15,8 +15,7 @@ mongoose.connect('mongodb://localhost:27017/cinefactsDB', { useNewUrlParser: tru
 }).catch((err) =>{
     console.log(err);
 });
-mongoose.set('debug', true);
-
+//mongoose.set('debug', true);
 
 
 //log request
@@ -51,53 +50,15 @@ app.get('/movies/:title',(req, res) => {
     res.json(movie);
 });
 
-//get a genre by name
-app.get('/genres/:name',(req, res) => {
-    //to do: get genre by name from db
-    genre = {
-        name: "name",
-        description: "description"
-    }
-    res.json(genre);
-});
-
-//get a genre by name
-app.get('/directors/:name',(req, res) => {
-    //to do: get director by name from db
-    director = {
-        name: "name",
-        bio: "bio",
-        birthYear: "birthYear",
-        deathYear: "deathYear"
-    }
-    res.json(director);
-});
-
 //create new user
 /* Body JSON format
 {
-    ID: Integer,        _id
     Username: String,   UserName
     Password: String,   Password
     Email: String,      Email
     Birthday: Date      Birthday
 }*/
 app.post('/users',(req, res) => { 
-
-    // //callback method
-    // Users.findOne({ "Email": req.body.Email }, function (err, user) {        
-    //     if(err){
-    //         console.log(err);
-    //         res.status(500).send('Error: ' + error);
-    //     }else if(user){
-    //         console.log(user);    
-    //         return res.status(400).send(req.body.Username + ' already exists');        
-    //     }else{
-    //         console.log("No user found");
-    //         return res.status(200).send(req.body.Username + ' created');
-    //     }
-    // });
-
     Users.findOne({ UserName: req.body.Username })
     .then((user) => {
         if (user) {
@@ -117,9 +78,33 @@ app.post('/users',(req, res) => {
             res.status(500).send('Error: ' + error);
         })
     }})
-    .catch((error) => {
+    .catch((error) => { 
         console.error(error);
         res.status(500).send('Error: ' + error);
+    });
+});
+
+// Get all users
+app.get('/users', (req, res) => {
+    Users.find()
+    .then((users) => {
+            res.status(201).json(users);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+    });
+});
+
+// Get a user by username
+app.get('/users/:Username', (req, res) => {
+    Users.findOne({ UserName: req.params.Username })
+    .then((user) => {
+            res.json(user);
+    })
+    .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
     });
 });
 
