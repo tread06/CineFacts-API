@@ -82,55 +82,41 @@ app.get('/directors/:name',(req, res) => {
     Email: String,      Email
     Birthday: Date      Birthday
 }*/
-app.post('/users',(req, res) => {
-/* using postman, sending this body:
-{
-    "ID": 1234,
-    "Username": "Jerry",
-    "Password": "password1234",
-    "Email": "Jerry@test.com",
-    "Birthday": "1999-03-10"
-}*/
-    
-    // logs "Jerry" as expected
-    let params = {'UserName': req.body.Username};
-    console.log("query: " + params);
+app.post('/users',(req, res) => { 
 
-    Users.findOne(params) //note: in the DB, Username is UserName.
+    // //callback method
+    // Users.findOne({ "Email": req.body.Email }, function (err, user) {        
+    //     if(err){
+    //         console.log(err);
+    //         res.status(500).send('Error: ' + error);
+    //     }else if(user){
+    //         console.log(user);    
+    //         return res.status(400).send(req.body.Username + ' already exists');        
+    //     }else{
+    //         console.log("No user found");
+    //         return res.status(200).send(req.body.Username + ' created');
+    //     }
+    // });
+
+    Users.findOne({ UserName: req.body.Username })
     .then((user) => {
-        if (user) {            
-            console.log(user);            
-            /* always returns true and logs the first user, which is...
-            {
-                _id: new ObjectId("612da4b8b3c42b60d761ae9b"),
-                UserName: 'John',
-                Password: 'password1234',
-                Birthday: 1985-02-19T00:00:00.000Z,
-                FavoriteMovies: [
-                    new ObjectId("612d75bb7e144b08d5a5e4c6"),
-                    new ObjectId("612d75e97e144b08d5a5e4c7"),
-                    new ObjectId("612d88207e144b08d5a5e4d4")
-                ],
-                Email: 'John@test.com'
-            }*/
+        if (user) {
             return res.status(400).send(req.body.Username + ' already exists');
         } else {
-            Users
-            .create({
+            Users.create({
                 UserName: req.body.Username,
                 Password: req.body.Password,
                 Email: req.body.Email,
                 Birthday: req.body.Birthday
-            })
-            .then((user) =>{
-                console.log("User: "+user.UserName+ " was added");
-                res.status(201).json(user)})
-            .catch((error) => {
+        })
+        .then((user) =>{
+            res.status(201).json(user);
+        })
+        .catch((error) => {
             console.error(error);
             res.status(500).send('Error: ' + error);
-            })
-        }
-    })
+        })
+    }})
     .catch((error) => {
         console.error(error);
         res.status(500).send('Error: ' + error);
