@@ -6,131 +6,442 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineFacts Documentation</title>
 
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+
     <style>
+        body{
+            margin: 50px;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .method {
+            
+            display: inline-block;
+            color: white;
+            padding: 5px;
+            width: 70px;
+            border-radius: 3px;
+            text-align: center;
+        } 
+        .get {background-color: teal;} 
+        .post {background-color: rgb(168, 37, 168);} 
+        .put {background-color: rgb(111, 161, 45);} 
+        .delete {background-color: rgb(167, 49, 14);} 
+
+        .endpoint{          
+            color: black;
+            padding: 5px;
+            width: 40px;
+            border-radius: 3px;
+            text-align: left;
+            outline-style: solid;
+            outline-color: rgba(73, 75, 88, 0.5);
+            outline-width: 2px;
+            margin: 0px 5px;
+            
+        }
+        .description{
+            
+            color: grey;
+            padding: 5px;
+            width: 40px;
+            border-radius: 3px;
+            text-align: left;
+            outline-style: solid;
+            outline-color: rgba(73, 75, 88, 0.5);
+            outline-width: 2px;
+            margin: 0px 5px;
+        }
         table {
             table-layout: fixed;
-            width: 1200px;
+            width: 800px;
             border-spacing: 0px;
         }        
         th,td {
-            border: 1px solid rgba(0, 0, 0, 0.233);
+            border: 1px solid rgba(73, 75, 88, 0.5);
             width: 100px;
             overflow: hidden;
-            padding: 5px;
-        }        
-        .method-col{
-            width: 25px;
-            text-align: center;
+            padding: 10px;
+        }  
+        .label{
+            width: 20%;
         }
-    </style>
-
+        .json{
+            width: 80%;
+        }
+    </style>    
 </head>
+
 <body>
     <h1>CineFacts API documentation</h1>
-    <p>The CineFacts API provides information on movie genres and directors and allows users to create profiles and shareable movie collections.</p>
-    
+    <h4>The CineFacts API provides information on movies and directors and allows users to create profiles and shareable movie collections.</h4>
     <h2>Users</h2>
-    <table>
-        <tr>
-            <th class="method-col">METHOD</td>
-            <th>Endpoint URL/params</td>
-            <th>Description</td>
-            <th>Request body example</td>
-            <th>Response body example</td>
-        </tr>
-        <tr>
-            <td class="method-col">POST</td>
-            <td>/users</td>
-            <td>Creates a new user</td>
-            <td>{"name": "name"}</td>
-            <td>Text: "user created"</td>
-        </tr>
-        <tr>
-            <td class="method-col">PUT</td>
-            <td>/users/{user}/{name}</td>
-            <td>Updates the {user}'s' name to be {name}</td>
-            <td>none</td>
-            <td>Text: "user name was changed"</td>
-        </tr>
-        <tr>
-            <td class="method-col">POST</td>
-            <td>/users/{user}/movies</td>
-            <td>Adds a movie to the {user}'s movie list using movie data in the request body</td>
-            <td>{title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"}</td>
-            <td>Text: "Book added to user's book list."</td>
-        </tr>
-        <tr>
-            <td class="method-col">DELETE</td>
-            <td>/users/{user}/movies/{index}</td>
-            <td>Removes a movie to the {user}'s movie list at {index}</td>
-            <td>none</td>
-            <td>Text: "Book at index was removed from user's book list."</td>
-        </tr>
-    </table>
+
+    <!-- get all users -->
+    <div>
+        <div class="method get">GET</div>
+        <span class ="endpoint">/users</span>
+        <span class ="description">Get all users.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    <code>
+                        [<br>
+                            {<br>
+                                "_id": "612da4b8b3c42b60d761ae9b",<br>
+                                "UserName": "John",<br>
+                                "Password": "password1234",<br>
+                                "Birthday": "1997-06-05T00:00:00.000Z",<br>
+                                "FavoriteMovies": [<br>
+                                    "612d75bb7e144b08d5a5e4c6",<br>
+                                    "612d75e97e144b08d5a5e4c7",<br>
+                                    "612d88207e144b08d5a5e4d4"<br>
+                                ],<br>
+                                "Email": "John@test.com"<br>
+                            }<br>
+                        ]
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+
+    <!-- get user -->
+    <div>
+        <div class="method get">GET</div>
+        <span class ="endpoint">/users/:username</span>
+        <span class ="description">Get user by username.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    <code>
+                            {<br>
+                                "_id": "612da4b8b3c42b60d761ae9b",<br>
+                                "UserName": "John",<br>
+                                "Password": "password1234",<br>
+                                "Birthday": "1997-06-05T00:00:00.000Z",<br>
+                                "FavoriteMovies": [<br>
+                                    "612d75bb7e144b08d5a5e4c6",<br>
+                                    "612d75e97e144b08d5a5e4c7",<br>
+                                    "612d88207e144b08d5a5e4d4"<br>
+                                ],<br>
+                                "Email": "John@test.com"<br>
+                            }
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+
+    <!-- create user -->
+    <div>
+        <div class="method post">POST</div>
+        <span class ="endpoint">/users</span>
+        <span class ="description">Create a new user from JSON data.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >
+                    <code>
+                        {<br>
+                            "Username": "Jeb",<br>
+                            "Password": "password1234",<br>
+                            "Email": "Jeb@test.com",<br>
+                            "Birthday": "2000-01-01"<br>
+                        }
+                </code>
+                </td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    Returns the created user data.<br><br>
+                    <code>
+                        {<br>
+                            "UserName": "Jeb",<br>
+                            "Password": "password1234",<br>
+                            "Email": "Jeb@test.com",<br>
+                            "Birthday": "2000-01-01T00:00:00.000Z",<br>
+                            "FavoriteMovies": [],<br>
+                            "_id": "6132e637733afaf8560f2d69",<br>
+                            "__v": 0<br>
+                        }
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+
+    <!-- update user -->
+    <div>
+        <div class="method put">PUT</div>
+        <span class ="endpoint">/users/:username</span>
+        <span class ="description">Updates user data.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >
+                    <code>
+                        {<br>
+                            Username: "Jeb", (required)<br>
+                            Password: "password1234", (required)<br>
+                            Email: Jeb@test.com", (required)<br>
+                            Birthday: 2000-01-01<br>
+                        }
+                    </code>
+                </td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    Returns the updated user data.<br><br>
+                    <code>
+                        {<br>
+                            "UserName": "Jeb",<br>
+                            "Password": "password1234",<br>
+                            "Email": "Jeb@test.com",<br>
+                            "Birthday": "2000-01-01T00:00:00.000Z",<br>
+                            "FavoriteMovies": [],<br>
+                            "_id": "6132e637733afaf8560f2d69",<br>
+                            "__v": 0<br>
+                        }
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+
+    <!-- delete user -->
+    <div>
+        <div class="method delete">DELETE</div>
+        <span class ="endpoint">/users/:username</span>
+        <span class ="description">Updates user data.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >none</code>
+                </td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    TEXT - [User] was deleted.
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+
+    <!-- add movie to user list -->
+    <div>
+        <div class="method post">POST</div>
+        <span class ="endpoint">/users/:username/movies/:movieId</span>
+        <span class ="description">Adds a movie to the user's favorite movies list.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json">none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    Returns the updated user data.<br><br>
+                    <code>
+                        {<br>
+                            "_id": "612da4b8b3c42b60d761ae9b",<br>
+                            "UserName": "User",<br>
+                            "Password": "password1234",<br>
+                            "Birthday": "1997-06-05T00:00:00.000Z",<br>
+                            "FavoriteMovies": [<br>
+                                "612d75bb7e144b08d5a5e4c6",<br>
+                                "612d75e97e144b08d5a5e4c7",<br>
+                                "612d88207e144b08d5a5e4d4"<br>
+                            ],<br>
+                            "Email": "John@test.com"<br>
+                        }
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+
+    <!-- remove movie to user list -->
+    <div>
+        <div class="method delete">DELETE</div>
+        <span class ="endpoint">/users/:username/movies/:movieId</span>
+        <span class ="description">Removes a movie from the user's favorite movies list.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json">none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    Returns the updated user data.<br><br>
+                    <code>
+                        {<br>
+                            "_id": "612da4b8b3c42b60d761ae9b",<br>
+                            "UserName": "User",<br>
+                            "Password": "password1234",<br>
+                            "Birthday": "1997-06-05T00:00:00.000Z",<br>
+                            "FavoriteMovies": [<br>
+                                "612d75bb7e144b08d5a5e4c6",<br>
+                                "612d75e97e144b08d5a5e4c7",<br>
+                                "612d88207e144b08d5a5e4d4"<br>
+                            ],<br>
+                            "Email": "John@test.com"<br>
+                        }
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
 
     <h2>Movies</h2>
-    <table>
-        <tr>
-            <th class="method-col">METHOD</td>
-            <th>Endpoint URL/params</td>
-            <th>Description</td>
-            <th>Request body example</td>
-            <th>Response body example</td>
-        </tr>
-        <tr>
-            <td class="method-col">GET</td>
-            <td>/movies</td>
-            <td>Returns a list of all movies</td>
-            <td>none</td>
-            <td>JSON: {movies: [{title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"}]}</td>
-        </tr>
-        <tr>
-            <td class="method-col">GET</td>
-            <td>/movies/{title}</td>
-            <td>Returns movie data using movie {title}</td>
-            <td>none</td>
-            <td>JSON: {title: "title", description: "description", genre: "genre", director: "director", imageUrl: "imageUrl"}</td>
-        </tr>
-        <tr>
-            <td class="method-col">GET</td>
-            <td>/directors/{name}</td>
-            <td>Returns director data using director {name}</td>
-            <td>none</td>
-            <td>JSON: {name: "name", bio: "bio", birthYear: "birthYear", deathYear: "deathYear"}</td>
-        </tr>
-        <tr>
-            <td class="method-col">GET</td>
-            <td>/genres/{name}</td>
-            <td>Returns genre data using genre {name}</td>
-            <td>none</td>
-            <td>JSON: {name: "name", description: "description"}</td>
-        </tr>
-        <tr>
-    </table>
+
+    <!--get all movies -->
+
+    <div>
+        <div class="method get">GET</div>
+        <span class ="endpoint">/movies</span>
+        <span class ="description">Get all movies.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    <code>
+                        [<br>
+                            {<br>
+                                "Director": {<br>
+                                    "Name": "Francis Ford Coppola",<br>
+                                    "Bio": "Francis Ford Coppola, an American film director, producer...",<br>
+                                    "BirthYear": 1939,<br>
+                                    "DeathYear": null<br>
+                                },<br>
+                                "_id": "612d75bb7e144b08d5a5e4c6",<br>
+                                "Title": "The Godfather",<br>
+                                "Genre": "Drama",<br>
+                                "Description": "An organized crime dynasty's aging patriarch transfers control..."<br>
+                            }<br>
+                        ]
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+
+    <!--get movie -->
+
+    <div>
+        <div class="method get">GET</div>
+        <span class ="endpoint">/movies/:title</span>
+        <span class ="description">Get movies by title.</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    <code>
+                        [<br>
+                            {<br>
+                                "Director": {<br>
+                                    "Name": "Francis Ford Coppola",<br>
+                                    "Bio": "Francis Ford Coppola, an American film director, producer...",<br>
+                                    "BirthYear": 1939,<br>
+                                    "DeathYear": null<br>
+                                },<br>
+                                "_id": "612d75bb7e144b08d5a5e4c6",<br>
+                                "Title": "The Godfather",<br>
+                                "Genre": "Drama",<br>
+                                "Description": "An organized crime dynasty's aging patriarch transfers control..."<br>
+                            }<br>
+                        ]
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+    
     <h2>Docs</h2>
-    <table>
-        <tr>
-            <th class="method-col">METHOD</td>
-            <th>Endpoint URL/params</td>
-            <th>Description</td>
-            <th>Request body example</td>
-            <th>Response body example</td>
-        </tr>
-        <tr>
-            <td class="method-col">GET</td>
-            <td>/documentation</td>
-            <td>Returns API documentation</td>
-            <td>none</td>
-            <td>HTML</td>
-        </tr>
-        <tr>
-            <td class="method-col">GET</td>
-            <td>/</td>
-            <td>Returns API home page</td>
-            <td>none</td>
-            <td>HTML</td>
-        </tr>
-    </table>
+
+    <!-- documentation -->
+    <div>
+        <div class="method get">GET</div>
+        <span class ="endpoint">/documentation</span>
+        <span class ="description">HTML documentation</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    HTML documenation
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+
+    <!-- home -->
+    <div>
+        <div class="method get">GET</div>
+        <span class ="endpoint">/</span>
+        <span class ="description">HTML Cinefacts API homepage</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    HTML homepage
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
 
 </body>
 </html>
