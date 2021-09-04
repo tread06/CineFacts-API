@@ -56,8 +56,9 @@
         }
         table {
             table-layout: fixed;
-            width: 800px;
             border-spacing: 0px;
+            width: 90%;
+            max-width: 800px;
         }        
         th,td {
             border: 1px solid rgba(73, 75, 88, 0.5);
@@ -367,7 +368,7 @@
     <div>
         <div class="method get">GET</div>
         <span class ="endpoint">/movies/:title</span>
-        <span class ="description">Get movies by title.</span><br><br>        
+        <span class ="description">Get movie by title.</span><br><br>        
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -377,7 +378,6 @@
                 <td>Responce Body</td>
                 <td>
                     <code>
-                        [<br>
                             {<br>
                                 "Director": {<br>
                                     "Name": "Francis Ford Coppola",<br>
@@ -389,8 +389,7 @@
                                 "Title": "The Godfather",<br>
                                 "Genre": "Drama",<br>
                                 "Description": "An organized crime dynasty's aging patriarch transfers control..."<br>
-                            }<br>
-                        ]
+                            }
                     </code>
                 </td>
             </tr>
@@ -405,7 +404,7 @@
     <div>
         <div class="method get">GET</div>
         <span class ="endpoint">/documentation</span>
-        <span class ="description">HTML documentation</span><br><br>        
+        <span class ="description">Returns HTML documentation</span><br><br>        
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -426,7 +425,7 @@
     <div>
         <div class="method get">GET</div>
         <span class ="endpoint">/</span>
-        <span class ="description">HTML Cinefacts API homepage</span><br><br>        
+        <span class ="description">Returns HTML Cinefacts API homepage</span><br><br>        
         <table>
             <tr>
                 <td class="label">Request Body</td>
