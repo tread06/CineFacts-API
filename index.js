@@ -23,11 +23,19 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+//auth
+//must be placed after body parsing
+let auth = require('./auth')(app);
+const passport = require('passport');
+
+//passport strategies
+require('./passport');
+
 //access static files
 app.use(express.static('public'));
 
 //Get all movies
-app.get('/movies',(req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.find()
     .then((movies) => {
         return res.status(200).json(movies);
@@ -63,13 +71,13 @@ app.get('/movies/:title',(req, res) => {
     Birthday: Date      Birthday
 }*/
 app.post('/users',(req, res) => { 
-    Users.findOne({ UserName: req.body.Username })
+    Users.findOne({ Username: req.body.Username })
     .then((user) => {
         if (user) {
             return res.status(400).send(req.body.Username + ' already exists');
         } else {
             Users.create({
-                UserName: req.body.Username,
+                Username: req.body.Username,
                 Password: req.body.Password,
                 Email: req.body.Email,
                 Birthday: req.body.Birthday
@@ -102,7 +110,7 @@ app.get('/users', (req, res) => {
 
 // Get a user by username
 app.get('/users/:Username', (req, res) => {
-    Users.findOne({ UserName: req.params.Username })
+    Users.findOne({ Username: req.params.Username })
     .then((user) => {
             res.json(user);
     })
@@ -121,9 +129,9 @@ app.get('/users/:Username', (req, res) => {
     Birthday: Date
 }*/
 app.put('/users/:Username', (req, res) => {
-    Users.findOneAndUpdate({ UserName: req.params.Username }, { $set:
+    Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
         {
-            UserName: req.body.Username,
+            Username: req.body.Username,
             Password: req.body.Password,
             Email: req.body.Email,
             Birthday: req.body.Birthday
@@ -142,7 +150,7 @@ app.put('/users/:Username', (req, res) => {
 
 // Add a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
-    Users.findOneAndUpdate({ UserName: req.params.Username }, {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
         $push: { FavoriteMovies: req.params.MovieID }
     },
     { new: true }, // Return updated document
@@ -158,7 +166,7 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 
 //remove movie from user list
 app.delete('/users/:Username/movies/:MovieID',(req, res) => {
-    Users.findOneAndUpdate({ UserName: req.params.Username }, {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
         $pull: { FavoriteMovies: req.params.MovieID }
     },
     { new: true }, // Return updated document
@@ -174,7 +182,7 @@ app.delete('/users/:Username/movies/:MovieID',(req, res) => {
 
 // Delete a user by username
 app.delete('/users/:Username', (req, res) => {
-    Users.findOneAndRemove({ UserName: req.params.Username })
+    Users.findOneAndRemove({ Username: req.params.Username })
         .then((user) => {
             if (!user) {
                 res.status(400).send(req.params.Username + ' was not found');
