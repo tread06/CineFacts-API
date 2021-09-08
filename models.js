@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 let movieSchema = mongoose.Schema({
     Title: {type: String, required: true},
@@ -28,6 +29,7 @@ userSchema.statics.hashPassword = (password) => {
 //important note: validate password is an instanced function that is called on individual documents.
 //cannot use arrow functions because they bind "this" to the class and not the individual user document.
 userSchema.methods.validatePassword = function(password) {
+    //console.log(bcrypt.hashSync(password, 10));
     return bcrypt.compareSync(password, this.Password);
 };
 
