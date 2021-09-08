@@ -247,7 +247,7 @@ app.get('/documentation',(req, res) => {
 
 //home
 app.get('/',(req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
+    res.sendFile(__dirname + '/public/documentation.html');
 });
 
 //error handing
