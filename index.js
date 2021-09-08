@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-const { check, validationResult } = require('express-validator');
+const { check, validationResult, body } = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -162,14 +162,19 @@ app.put('/users/:Username',[
     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail()
-    ], passport.authenticate('jwt', { session: false }), (req, res) => {
-
-    // to do: check to make sure the token user === the using being updated
+    ], passport.authenticate('jwt', { session: false }), (req, res) => {   
+    
 
     // check the validation object for errors
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
+        return res.status(422).json({ errors: errors.array()});
+    }
+
+    // check to make sure the token user === the using being updated
+    if(req.user.Username !== req.params.Username){
+        console.log("Token.Username does not match Params.Username.");
+        return res.status(400).send('Unauthorized');
     }
     
     let hashedPassword = Users.hashPassword(req.body.Password);
@@ -194,6 +199,13 @@ app.put('/users/:Username',[
 
 // Add a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    // check to make sure the token user === the using being updated
+    if(req.user.Username !== req.params.Username){
+        console.log("Token.Username does not match Params.Username.");
+        return res.status(400).send('Unauthorized');
+    }
+
     Users.findOneAndUpdate({ Username: req.params.Username }, {
         $push: { FavoriteMovies: req.params.MovieID }
     },
@@ -210,6 +222,13 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
 
 //remove movie from user list
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    // check to make sure the token user === the using being updated
+    if(req.user.Username !== req.params.Username){
+        console.log("Token.Username does not match Params.Username.");
+        return res.status(400).send('Unauthorized');
+    }
+
     Users.findOneAndUpdate({ Username: req.params.Username }, {
         $pull: { FavoriteMovies: req.params.MovieID }
     },
@@ -226,6 +245,13 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
 
 // Delete a user by username
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+
+    // check to make sure the token user === the using being updated
+    if(req.user.Username !== req.params.Username){
+        console.log("Token.Username does not match Params.Username.");
+        return res.status(400).send('Unauthorized');
+    }
+
     Users.findOneAndRemove({ Username: req.params.Username })
         .then((user) => {
             if (!user) {
