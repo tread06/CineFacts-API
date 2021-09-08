@@ -48,8 +48,6 @@ require('./passport');
 //access static files
 app.use(express.static('public'));
 
-
-
 //Get all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.find()
@@ -174,7 +172,7 @@ app.put('/users/:Username',[
     // check to make sure the token user === the using being updated
     if(req.user.Username !== req.params.Username){
         console.log("Token.Username does not match Params.Username.");
-        return res.status(400).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
     
     let hashedPassword = Users.hashPassword(req.body.Password);
@@ -203,7 +201,7 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
     // check to make sure the token user === the using being updated
     if(req.user.Username !== req.params.Username){
         console.log("Token.Username does not match Params.Username.");
-        return res.status(400).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
 
     Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -226,7 +224,7 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
     // check to make sure the token user === the using being updated
     if(req.user.Username !== req.params.Username){
         console.log("Token.Username does not match Params.Username.");
-        return res.status(400).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
 
     Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -249,7 +247,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
     // check to make sure the token user === the using being updated
     if(req.user.Username !== req.params.Username){
         console.log("Token.Username does not match Params.Username.");
-        return res.status(400).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
 
     Users.findOneAndRemove({ Username: req.params.Username })
