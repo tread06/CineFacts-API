@@ -54,11 +54,36 @@
             outline-width: 2px;
             margin: 0px 5px;
         }
+        .warning{
+            
+            color: rgb(255, 255, 255);
+            padding: 5px;
+            width: 40px;
+            border-radius: 3px;
+            text-align: left;
+            outline-style: solid;
+            background-color: rgb(189, 82, 82);
+            outline-width: 2px;
+            margin: 0px 5px;
+        }
+        .alert{
+            
+            color: rgb(255, 255, 255);
+            padding: 5px;
+            width: 40px;
+            border-radius: 3px;
+            text-align: left;
+            outline-style: solid;
+            background-color: rgb(194, 121, 26);
+            outline-width: 2px;
+            margin: 0px 5px;
+        }
         table {
             table-layout: fixed;
             border-spacing: 0px;
             width: 90%;
             max-width: 800px;
+            box-shadow: 10px 5px 5px rgba(73, 75, 88, 0.068);
         }        
         th,td {
             border: 1px solid rgba(73, 75, 88, 0.5);
@@ -76,15 +101,50 @@
 </head>
 
 <body>
-    <h1>CineFacts API documentation</h1>
+    <h1>CineFacts API Documentation</h1>
     <h4>The CineFacts API provides information on movies and directors and allows users to create profiles and shareable movie collections.</h4>
     <h2>Users</h2>
+
+    <!-- login -->
+    <div>
+        <div class="method post">POST</div>
+        <span class ="endpoint">/login/:Username/:Password</span>
+        <span class ="description">Log in to recieve JWT</span><br><br>        
+        <table>
+            <tr>
+                <td class="label">Request Body</td>
+                <td class="json" >none</td>
+            </tr>
+            <tr>
+                <td>Responce Body</td>
+                <td>
+                    <code>
+                        {<br>
+                            &emsp;"user": { <br>
+                            &emsp;&emsp;"_id": "6138a07f837faf0a3431d54b",<br>
+                            &emsp;&emsp;"Username": "Jody",<br>
+                            &emsp;&emsp;"Password": "$2b$10$SfsmuewBK1gqmtoNQh3QYeL2U0WhpeIoHvqX0ySzCiH7bEdG12OHa",<br>
+                            &emsp;&emsp;"Email": "jody@test.com",<br>
+                            &emsp;&emsp;"Birthday": "1992-12-05T00:00:00.000Z",<br>
+                            &emsp;&emsp;"FavoriteMovies": [],<br>
+                            &emsp;"__v": 0<br>
+                            &emsp;},<br>
+                            &emsp;"token": "token"<br>
+                        }
+                    </code>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
 
     <!-- get all users -->
     <div>
         <div class="method get">GET</div>
         <span class ="endpoint">/users</span>
-        <span class ="description">Get all users.</span><br><br>        
+        <span class ="description">Get all users.</span>     
+        <span class ="alert">Requires Authentification</span><br><br>      
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -95,18 +155,17 @@
                 <td>
                     <code>
                         [<br>
-                            {<br>
-                                "_id": "612da4b8b3c42b60d761ae9b",<br>
-                                "UserName": "John",<br>
-                                "Password": "password1234",<br>
-                                "Birthday": "1997-06-05T00:00:00.000Z",<br>
-                                "FavoriteMovies": [<br>
-                                    "612d75bb7e144b08d5a5e4c6",<br>
-                                    "612d75e97e144b08d5a5e4c7",<br>
-                                    "612d88207e144b08d5a5e4d4"<br>
-                                ],<br>
-                                "Email": "John@test.com"<br>
-                            }<br>
+                        &emsp;{<br>
+                            &emsp;&emsp;"_id": "612da4b8b3c42b60d761ae9b",<br>
+                            &emsp;&emsp;"UserName": "John",<br>
+                            &emsp;&emsp;"Birthday": "1997-06-05T00:00:00.000Z",<br>
+                            &emsp;&emsp;"FavoriteMovies": [<br>
+                            &emsp;&emsp;&emsp;"612d75bb7e144b08d5a5e4c6",<br>
+                            &emsp;&emsp;&emsp;"612d75e97e144b08d5a5e4c7",<br>
+                            &emsp;&emsp;&emsp;"612d88207e144b08d5a5e4d4"<br>
+                            &emsp;&emsp;],<br>
+                            &emsp;&emsp;"Email": "John@test.com"<br>
+                            &emsp;}<br>
                         ]
                     </code>
                 </td>
@@ -120,7 +179,8 @@
     <div>
         <div class="method get">GET</div>
         <span class ="endpoint">/users/:username</span>
-        <span class ="description">Get user by username.</span><br><br>        
+        <span class ="description">Get user by username.</span> 
+        <span class ="alert">Requires Authentification</span><br><br>     
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -131,16 +191,15 @@
                 <td>
                     <code>
                             {<br>
-                                "_id": "612da4b8b3c42b60d761ae9b",<br>
-                                "UserName": "John",<br>
-                                "Password": "password1234",<br>
-                                "Birthday": "1997-06-05T00:00:00.000Z",<br>
-                                "FavoriteMovies": [<br>
-                                    "612d75bb7e144b08d5a5e4c6",<br>
-                                    "612d75e97e144b08d5a5e4c7",<br>
-                                    "612d88207e144b08d5a5e4d4"<br>
-                                ],<br>
-                                "Email": "John@test.com"<br>
+                                &emsp;"_id": "612da4b8b3c42b60d761ae9b",<br>
+                                &emsp;"UserName": "John",<br>
+                                &emsp;"Birthday": "1997-06-05T00:00:00.000Z",<br>
+                                &emsp;"FavoriteMovies": [<br>
+                                &emsp;&emsp;"612d75bb7e144b08d5a5e4c6",<br>
+                                &emsp;&emsp;"612d75e97e144b08d5a5e4c7",<br>
+                                &emsp;&emsp;"612d88207e144b08d5a5e4d4"<br>
+                                &emsp;],<br>
+                                &emsp;"Email": "John@test.com"<br>
                             }
                     </code>
                 </td>
@@ -161,10 +220,10 @@
                 <td class="json" >
                     <code>
                         {<br>
-                            "Username": "Jeb",<br>
-                            "Password": "password1234",<br>
-                            "Email": "Jeb@test.com",<br>
-                            "Birthday": "2000-01-01"<br>
+                            &emsp;"Username": "Jeb",<br>
+                            &emsp;"Password": "password1234",<br>
+                            &emsp;"Email": "Jeb@test.com",<br>
+                            &emsp;"Birthday": "2000-01-01"<br>
                         }
                 </code>
                 </td>
@@ -175,13 +234,13 @@
                     Returns the created user data.<br><br>
                     <code>
                         {<br>
-                            "UserName": "Jeb",<br>
-                            "Password": "password1234",<br>
-                            "Email": "Jeb@test.com",<br>
-                            "Birthday": "2000-01-01T00:00:00.000Z",<br>
-                            "FavoriteMovies": [],<br>
-                            "_id": "6132e637733afaf8560f2d69",<br>
-                            "__v": 0<br>
+                            &emsp;"UserName": "Jeb",<br>
+                            &emsp;"Password": "hashedPassword",<br>
+                            &emsp;"Email": "Jeb@test.com",<br>
+                            &emsp;"Birthday": "2000-01-01T00:00:00.000Z",<br>
+                            &emsp;"FavoriteMovies": [],<br>
+                            &emsp;"_id": "6132e637733afaf8560f2d69",<br>
+                            &emsp;"__v": 0<br>
                         }
                     </code>
                 </td>
@@ -195,17 +254,18 @@
     <div>
         <div class="method put">PUT</div>
         <span class ="endpoint">/users/:username</span>
-        <span class ="description">Updates user data.</span><br><br>        
+        <span class ="description">Updates user data.</span>
+        <span class ="warning">Requires Authorization</span><br><br>     
         <table>
             <tr>
                 <td class="label">Request Body</td>
                 <td class="json" >
                     <code>
                         {<br>
-                            Username: "Jeb", (required)<br>
-                            Password: "password1234", (required)<br>
-                            Email: Jeb@test.com", (required)<br>
-                            Birthday: 2000-01-01<br>
+                            &emsp;Username: "Jeb", (required)<br>
+                            &emsp;Password: "password1234", (required)<br>
+                            &emsp;Email: Jeb@test.com", (required)<br>
+                            &emsp;Birthday: 2000-01-01<br>
                         }
                     </code>
                 </td>
@@ -216,13 +276,13 @@
                     Returns the updated user data.<br><br>
                     <code>
                         {<br>
-                            "UserName": "Jeb",<br>
-                            "Password": "password1234",<br>
-                            "Email": "Jeb@test.com",<br>
-                            "Birthday": "2000-01-01T00:00:00.000Z",<br>
-                            "FavoriteMovies": [],<br>
-                            "_id": "6132e637733afaf8560f2d69",<br>
-                            "__v": 0<br>
+                            &emsp;"UserName": "Jeb",<br>
+                            &emsp;"Password": "hashedPassword",<br>
+                            &emsp;"Email": "Jeb@test.com",<br>
+                            &emsp;"Birthday": "2000-01-01T00:00:00.000Z",<br>
+                            &emsp;"FavoriteMovies": [],<br>
+                            &emsp;"_id": "6132e637733afaf8560f2d69",<br>
+                            &emsp;"__v": 0<br>
                         }
                     </code>
                 </td>
@@ -236,11 +296,12 @@
     <div>
         <div class="method delete">DELETE</div>
         <span class ="endpoint">/users/:username</span>
-        <span class ="description">Updates user data.</span><br><br>        
+        <span class ="description">Updates user data.</span>
+        <span class ="warning">Requires Authorization</span><br><br>      
         <table>
             <tr>
                 <td class="label">Request Body</td>
-                <td class="json" >none</code>
+                <td class="json" >none
                 </td>
             </tr>
             <tr>
@@ -258,7 +319,8 @@
     <div>
         <div class="method post">POST</div>
         <span class ="endpoint">/users/:username/movies/:movieId</span>
-        <span class ="description">Adds a movie to the user's favorite movies list.</span><br><br>        
+        <span class ="description">Adds a movie to the user's favorite movies list.</span>
+        <span class ="warning">Requires Authorization</span><br><br>       
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -270,16 +332,16 @@
                     Returns the updated user data.<br><br>
                     <code>
                         {<br>
-                            "_id": "612da4b8b3c42b60d761ae9b",<br>
-                            "UserName": "User",<br>
-                            "Password": "password1234",<br>
-                            "Birthday": "1997-06-05T00:00:00.000Z",<br>
-                            "FavoriteMovies": [<br>
-                                "612d75bb7e144b08d5a5e4c6",<br>
-                                "612d75e97e144b08d5a5e4c7",<br>
-                                "612d88207e144b08d5a5e4d4"<br>
-                            ],<br>
-                            "Email": "John@test.com"<br>
+                            &emsp;"_id": "612da4b8b3c42b60d761ae9b",<br>
+                            &emsp;"UserName": "User",<br>
+                            &emsp;"Password": "hashedPassword",<br>
+                            &emsp;"Birthday": "1997-06-05T00:00:00.000Z",<br>
+                            &emsp;"FavoriteMovies": [<br>
+                            &emsp;&emsp;"612d75bb7e144b08d5a5e4c6",<br>
+                            &emsp;&emsp;"612d75e97e144b08d5a5e4c7",<br>
+                            &emsp;&emsp;"612d88207e144b08d5a5e4d4"<br>
+                            &emsp;],<br>
+                            &emsp;"Email": "John@test.com"<br>
                         }
                     </code>
                 </td>
@@ -289,11 +351,12 @@
     <br>
     <br>
 
-    <!-- remove movie to user list -->
+    <!-- remove movie from user list -->
     <div>
         <div class="method delete">DELETE</div>
         <span class ="endpoint">/users/:username/movies/:movieId</span>
-        <span class ="description">Removes a movie from the user's favorite movies list.</span><br><br>        
+        <span class ="description">Removes a movie from the user's favorite movies list.</span>
+        <span class ="warning">Requires Authorization</span><br><br>     
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -305,16 +368,16 @@
                     Returns the updated user data.<br><br>
                     <code>
                         {<br>
-                            "_id": "612da4b8b3c42b60d761ae9b",<br>
-                            "UserName": "User",<br>
-                            "Password": "password1234",<br>
-                            "Birthday": "1997-06-05T00:00:00.000Z",<br>
-                            "FavoriteMovies": [<br>
-                                "612d75bb7e144b08d5a5e4c6",<br>
-                                "612d75e97e144b08d5a5e4c7",<br>
-                                "612d88207e144b08d5a5e4d4"<br>
-                            ],<br>
-                            "Email": "John@test.com"<br>
+                            &emsp;"_id": "612da4b8b3c42b60d761ae9b",<br>
+                            &emsp;"UserName": "User",<br>
+                            &emsp;"Password": "hashedPassword",<br>
+                            &emsp;"Birthday": "1997-06-05T00:00:00.000Z",<br>
+                            &emsp;"FavoriteMovies": [<br>
+                            &emsp;&emsp;"612d75bb7e144b08d5a5e4c6",<br>
+                            &emsp;&emsp;"612d75e97e144b08d5a5e4c7",<br>
+                            &emsp;&emsp;"612d88207e144b08d5a5e4d4"<br>
+                            &emsp;],<br>
+                            &emsp;"Email": "John@test.com"<br>
                         }
                     </code>
                 </td>
@@ -331,7 +394,8 @@
     <div>
         <div class="method get">GET</div>
         <span class ="endpoint">/movies</span>
-        <span class ="description">Get all movies.</span><br><br>        
+        <span class ="description">Get all movies.</span>   
+        <span class ="alert">Requires Authentification</span><br><br>  
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -343,16 +407,16 @@
                     <code>
                         [<br>
                             {<br>
-                                "Director": {<br>
-                                    "Name": "Francis Ford Coppola",<br>
-                                    "Bio": "Francis Ford Coppola, an American film director, producer...",<br>
-                                    "BirthYear": 1939,<br>
-                                    "DeathYear": null<br>
-                                },<br>
-                                "_id": "612d75bb7e144b08d5a5e4c6",<br>
-                                "Title": "The Godfather",<br>
-                                "Genre": "Drama",<br>
-                                "Description": "An organized crime dynasty's aging patriarch transfers control..."<br>
+                                &emsp;"Director": {<br>
+                                    &emsp;&emsp;"Name": "Francis Ford Coppola",<br>
+                                    &emsp;&emsp;"Bio": "Francis Ford Coppola, an American film director, producer...",<br>
+                                    &emsp;&emsp;"BirthYear": 1939,<br>
+                                    &emsp;&emsp;"DeathYear": null<br>
+                                    &emsp;},<br>
+                                    &emsp;"_id": "612d75bb7e144b08d5a5e4c6",<br>
+                                    &emsp;"Title": "The Godfather",<br>
+                                    &emsp;"Genre": "Drama",<br>
+                                    &emsp;"Description": "An organized crime dynasty's aging patriarch transfers control..."<br>
                             }<br>
                         ]
                     </code>
@@ -368,7 +432,8 @@
     <div>
         <div class="method get">GET</div>
         <span class ="endpoint">/movies/:title</span>
-        <span class ="description">Get movie by title.</span><br><br>        
+        <span class ="description">Get movie by title.</span> 
+        <span class ="alert">Requires Authentification</span><br><br>     
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -379,16 +444,16 @@
                 <td>
                     <code>
                             {<br>
-                                "Director": {<br>
-                                    "Name": "Francis Ford Coppola",<br>
-                                    "Bio": "Francis Ford Coppola, an American film director, producer...",<br>
-                                    "BirthYear": 1939,<br>
-                                    "DeathYear": null<br>
-                                },<br>
-                                "_id": "612d75bb7e144b08d5a5e4c6",<br>
-                                "Title": "The Godfather",<br>
-                                "Genre": "Drama",<br>
-                                "Description": "An organized crime dynasty's aging patriarch transfers control..."<br>
+                                &emsp;"Director": {<br>
+                                    &emsp;&emsp;"Name": "Francis Ford Coppola",<br>
+                                    &emsp;&emsp;"Bio": "Francis Ford Coppola, an American film director, producer...",<br>
+                                    &emsp;&emsp;"BirthYear": 1939,<br>
+                                    &emsp;&emsp;"DeathYear": null<br>
+                                    &emsp;},<br>
+                                &emsp;"_id": "612d75bb7e144b08d5a5e4c6",<br>
+                                &emsp;"Title": "The Godfather",<br>
+                                &emsp;"Genre": "Drama",<br>
+                                &emsp;"Description": "An organized crime dynasty's aging patriarch transfers control..."<br>
                             }
                     </code>
                 </td>
