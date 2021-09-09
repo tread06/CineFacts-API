@@ -42,20 +42,16 @@
             margin: 0px 5px;
             
         }
-        .description{
-            
-            color: grey;
+        .description{  
+            color: rgb(53, 49, 49);
             padding: 5px;
-            width: 40px;
             border-radius: 3px;
             text-align: left;
-            outline-style: solid;
-            outline-color: rgba(73, 75, 88, 0.5);
-            outline-width: 2px;
-            margin: 0px 5px;
+            margin: 5px 0px;
+            font-weight: bold;
+            font-size: larger;
         }
-        .warning{
-            
+        .warning{            
             color: rgb(255, 255, 255);
             padding: 5px;
             width: 40px;
@@ -107,9 +103,9 @@
 
     <!-- login -->
     <div>
+        <p class ="description">Log in to recieve JWT</p>
         <div class="method post">POST</div>
-        <span class ="endpoint">/login/:Username/:Password</span>
-        <span class ="description">Log in to recieve JWT</span><br><br>        
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/login/:Username/:Password</span><br><br>        
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -141,10 +137,11 @@
 
     <!-- get all users -->
     <div>
+        <p class ="description">Get all users.</p>   
         <div class="method get">GET</div>
-        <span class ="endpoint">/users</span>
-        <span class ="description">Get all users.</span>     
-        <span class ="alert">Requires Authentification</span><br><br>      
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/users</span>
+        <span class ="alert">Requires Authentification</span><br><br>
+        
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -177,10 +174,10 @@
 
     <!-- get user -->
     <div>
+        <p class ="description">Get user by username.</p> 
         <div class="method get">GET</div>
-        <span class ="endpoint">/users/:username</span>
-        <span class ="description">Get user by username.</span> 
-        <span class ="alert">Requires Authentification</span><br><br>     
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/users/:username</span>
+        <span class ="alert">Requires Authentification</span><br><br>
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -211,9 +208,9 @@
 
     <!-- create user -->
     <div>
+        <p class ="description">Create a new user from JSON data.</p> 
         <div class="method post">POST</div>
-        <span class ="endpoint">/users</span>
-        <span class ="description">Create a new user from JSON data.</span><br><br>        
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/users</span><br><br>
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -252,10 +249,10 @@
 
     <!-- update user -->
     <div>
+        <p class ="description">Updates user data.</p>   
         <div class="method put">PUT</div>
-        <span class ="endpoint">/users/:username</span>
-        <span class ="description">Updates user data.</span>
-        <span class ="warning">Requires Authorization</span><br><br>     
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/users/:username</span>
+        <span class ="warning">Requires Authorization</span><br><br>
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -294,10 +291,10 @@
 
     <!-- delete user -->
     <div>
+        <p class ="description">Updates user data.</p>   
         <div class="method delete">DELETE</div>
-        <span class ="endpoint">/users/:username</span>
-        <span class ="description">Updates user data.</span>
-        <span class ="warning">Requires Authorization</span><br><br>      
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/users/:username</span>
+        <span class ="warning">Requires Authorization</span><br><br>
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -317,10 +314,10 @@
 
     <!-- add movie to user list -->
     <div>
+        <p class ="description">Adds a movie to the user's favorite movies list.</p>
         <div class="method post">POST</div>
-        <span class ="endpoint">/users/:username/movies/:movieId</span>
-        <span class ="description">Adds a movie to the user's favorite movies list.</span>
-        <span class ="warning">Requires Authorization</span><br><br>       
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/users/:username/movies/:movieId</span>
+        <span class ="warning">Requires Authorization</span> <br><br>
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -353,10 +350,11 @@
 
     <!-- remove movie from user list -->
     <div>
+        <p class ="description">Removes a movie from the user's favorite movies list.</p>
         <div class="method delete">DELETE</div>
-        <span class ="endpoint">/users/:username/movies/:movieId</span>
-        <span class ="description">Removes a movie from the user's favorite movies list.</span>
-        <span class ="warning">Requires Authorization</span><br><br>     
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/users/:username/movies/:movieId</span>        
+        <span class ="warning">Requires Authorization</span><br><br>
+        
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -392,10 +390,10 @@
     <!--get all movies -->
 
     <div>
+        <p class ="description">Get all movies.</p>
         <div class="method get">GET</div>
-        <span class ="endpoint">/movies</span>
-        <span class ="description">Get all movies.</span>   
-        <span class ="alert">Requires Authentification</span><br><br>  
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/movies</span>
+        <span class ="alert">Requires Authentification</span><br><br>
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -430,10 +428,11 @@
     <!--get movie -->
 
     <div>
+        <p class ="description">Get movie by title.</p> 
         <div class="method get">GET</div>
-        <span class ="endpoint">/movies/:title</span>
-        <span class ="description">Get movie by title.</span> 
-        <span class ="alert">Requires Authentification</span><br><br>     
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/movies/:title</span>
+        <span class ="alert">Requires Authentification</span>  <br><br> 
+        
         <table>
             <tr>
                 <td class="label">Request Body</td>
@@ -467,9 +466,9 @@
 
     <!-- documentation -->
     <div>
+        <p class ="description">Returns HTML documentation</p>   
         <div class="method get">GET</div>
-        <span class ="endpoint">/documentation</span>
-        <span class ="description">Returns HTML documentation</span><br><br>        
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/documentation</span><br><br>
         <table>
             <tr>
                 <td class="label">Request Body</td>
