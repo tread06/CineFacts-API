@@ -266,12 +266,12 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 
 //documentation
 app.get('/documentation',(req, res) => {
-    res.sendFile(__dirname + '/public/documentation.html');
+    res.sendFile(__dirname + '/Public/documentation.html');
 });
 
 //home
 app.get('/',(req, res) => {
-    res.sendFile(__dirname + '/public/documentation.html');
+    res.sendFile(__dirname + '/Public/documentation.html');
 });
 
 //error handing
