@@ -277,7 +277,7 @@ app.get('/',(req, res) => {
 //error handing
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('An error occured.');
+    res.status(500).send(err.stack);
 });
 
 const port = process.env.PORT || 8080;
