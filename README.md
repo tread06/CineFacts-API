@@ -8,4 +8,4 @@ The CineFacts API is the backend for the CineFacts web application. The Cinefact
 - MongoDB
 
 ## Usage
-To do: add public URL / documentation
+See [documentation](https://cinefacts-api.herokuapp.com/)
