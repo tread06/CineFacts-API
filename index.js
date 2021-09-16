@@ -42,24 +42,24 @@ app.use(
 
 //cors
 const cors = require('cors');
-app.use(cors());
+//app.use(cors());
 
-// let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234'];
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin) return callback(null, true);
-//       if (allowedOrigins.indexOf(origin) === -1) {
-//         // If a specific origin isn’t found on the list of allowed origins
-//         let message =
-//           'The CORS policy for this application doesn’t allow access from origin ' +
-//           origin;
-//         return callback(new Error(message), false);
-//       }
-//       return callback(null, true);
-//     },
-//   })
-// );
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234'];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        // If a specific origin isn’t found on the list of allowed origins
+        let message =
+          'The CORS policy for this application doesn’t allow access from origin ' +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
 
 //auth (must be placed after body parsing)
 let auth = require('./auth')(app);
@@ -108,29 +108,29 @@ app.get(
 );
 
 //update image url
-app.patch(
-  '/movies/:title',
-  //passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    Movies.findOneAndUpdate(
-      { Title: req.params.title },
-      { ImageURL: req.body.ImageURL },
-      { overwrite: false, new: true }
-    )
-      .then((movie) => {
-        if (movie) {
-          console.log(req.body.ImageURL);
-          return res.status(200).send(movie);
-        } else {
-          return res.status(404).send('movie not found.');
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
-  }
-);
+// app.patch(
+//   '/movies/:title',
+//   //passport.authenticate('jwt', { session: false }),
+//   (req, res) => {
+//     Movies.findOneAndUpdate(
+//       { Title: req.params.title },
+//       { ImageURL: req.body.ImageURL },
+//       { overwrite: false, new: true }
+//     )
+//       .then((movie) => {
+//         if (movie) {
+//           console.log(req.body.ImageURL);
+//           return res.status(200).send(movie);
+//         } else {
+//           return res.status(404).send('movie not found.');
+//         }
+//       })
+//       .catch((error) => {
+//         console.error(error);
+//         res.status(500).send('Error: ' + error);
+//       });
+//   }
+// );
 
 //create new user
 /* Body JSON format
