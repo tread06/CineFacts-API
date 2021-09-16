@@ -76,7 +76,6 @@ app.get(
   '/movies',
   //passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     Movies.find()
       .then((movies) => {
         return res.status(200).json(movies);
@@ -93,7 +92,6 @@ app.get(
   '/movies/:title',
   //passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     Movies.findOne({ Title: req.params.title })
       .then((movie) => {
         if (movie) {
