@@ -74,6 +74,7 @@ app.get(
   '/movies',
   //passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     Movies.find()
       .then((movies) => {
         return res.status(200).json(movies);
@@ -90,9 +91,35 @@ app.get(
   '/movies/:title',
   //passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    res.set('Cross-Origin-Resource-Policy', 'cross-origin');
     Movies.findOne({ Title: req.params.title })
       .then((movie) => {
         if (movie) {
+          return res.status(200).send(movie);
+        } else {
+          return res.status(404).send('movie not found.');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
+  }
+);
+
+//update image url
+app.patch(
+  '/movies/:title',
+  //passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Movies.findOneAndUpdate(
+      { Title: req.params.title },
+      { ImageURL: req.body.ImageURL },
+      { overwrite: false, new: true }
+    )
+      .then((movie) => {
+        if (movie) {
+          console.log(req.body.ImageURL);
           return res.status(200).send(movie);
         } else {
           return res.status(404).send('movie not found.');
