@@ -74,7 +74,7 @@ app.use(express.static('public'));
 //Get all movies
 app.get(
   '/movies',
-  //passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Movies.find()
       .then((movies) => {
@@ -90,7 +90,7 @@ app.get(
 //get a movie by title
 app.get(
   '/movies/:title',
-  //passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Movies.findOne({ Title: req.params.title })
       .then((movie) => {
