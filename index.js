@@ -107,14 +107,14 @@ app.get(
   }
 );
 
-//update image url
+//update image genre
 // app.patch(
 //   '/movies/:title',
 //   //passport.authenticate('jwt', { session: false }),
 //   (req, res) => {
 //     Movies.findOneAndUpdate(
 //       { Title: req.params.title },
-//       { ImageURL: req.body.ImageURL },
+//       { Genre: req.body.Genre },
 //       { overwrite: false, new: true }
 //     )
 //       .then((movie) => {
