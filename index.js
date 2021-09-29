@@ -240,7 +240,7 @@ app.put(
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail(),
   ],
-  passport.authenticate('jwt', { session: false }),
+  //passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // check the validation object for errors
     let errors = validationResult(req);
@@ -249,10 +249,10 @@ app.put(
     }
 
     // check to make sure the token user === the using being updated
-    if (req.user.Username !== req.params.Username) {
-      console.log('Token.Username does not match Params.Username.');
-      return res.status(401).send('Unauth');
-    }
+    // if (req.user.Username !== req.params.Username) {
+    //   console.log('Token.Username does not match Params.Username.');
+    //   return res.status(401).send('Unauth');
+    // }
 
     let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate(
