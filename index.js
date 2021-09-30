@@ -249,6 +249,7 @@ app.put(
     }
 
     // check to make sure the token user === the using being updated
+    console.log('Checking user name/token.');
     if (req.user.Username !== req.params.Username) {
       console.log('Token.Username does not match Params.Username.');
       return res
