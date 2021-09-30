@@ -240,7 +240,7 @@ app.put(
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail(),
   ],
-  passport.authenticate('jwt', { session: false }),
+  //passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // check the validation object for errors
     let errors = validationResult(req);
@@ -252,6 +252,7 @@ app.put(
     // if (req.user.Username !== req.params.Username) {
     //   return res.status(401).json({ Error: 'Unauthorized' });
     // }
+
     console.log('Decoded user:');
     //console.log(req.user);
 
