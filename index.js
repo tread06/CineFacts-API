@@ -242,6 +242,7 @@ app.put(
   ],
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    
     // check the validation object for errors
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
