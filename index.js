@@ -249,7 +249,7 @@ app.put(
     }
 
     // check to make sure the token user === the using being updated
-    if (req.body.Username !== req.params.Username) {
+    if (req.body.user.Username !== req.params.Username) {
       return res.status(401).json({ Error: 'Unauthorized' });
     }
 
