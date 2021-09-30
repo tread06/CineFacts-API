@@ -283,7 +283,7 @@ app.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // check to make sure the token user === the using being updated
-    if (req.user.Username !== req.params.Username) {
+    if (req.body.Username !== req.params.Username) {
       console.log('Token.Username does not match Params.Username.');
       return res.status(401).send('Unauthorized');
     }
@@ -312,7 +312,7 @@ app.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // check to make sure the token user === the using being updated
-    if (req.user.Username !== req.params.Username) {
+    if (req.body.Username !== req.params.Username) {
       console.log('Token.Username does not match Params.Username.');
       return res.status(401).send('Unauthorized');
     }
@@ -341,7 +341,7 @@ app.delete(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // check to make sure the token user === the using being updated
-    if (req.user.Username !== req.params.Username) {
+    if (req.body.Username !== req.params.Username) {
       console.log('Token.Username does not match Params.Username.');
       return res.status(401).send('Unauthorized');
     }
