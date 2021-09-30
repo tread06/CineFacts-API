@@ -242,12 +242,13 @@ app.put(
   ],
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    
+
     // check the validation object for errors
-    let errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
+
+    // let errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   return res.status(422).json({ errors: errors.array() });
+    // }
 
     // check to make sure the token user === the using being updated
     // if (req.user.Username !== req.params.Username) {
@@ -270,7 +271,7 @@ app.put(
       },
       { new: true }, // return the updated document
       (err, updatedUser) => {
-        if (err) {
+        if (err) {          
           console.error(err);
           res.status(500).send('Error: ' + err);
         } else {
