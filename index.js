@@ -242,7 +242,6 @@ app.put(
   ],
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-
     // check the validation object for errors
 
     // let errors = validationResult(req);
@@ -271,7 +270,7 @@ app.put(
       },
       { new: true }, // return the updated document
       (err, updatedUser) => {
-        if (err) {          
+        if (err) {
           console.error(err);
           res.status(500).send('Error: ' + err);
         } else {
@@ -288,10 +287,10 @@ app.post(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // check to make sure the token user === the using being updated
-    if (req.body.Username !== req.params.Username) {
-      console.log('Token.Username does not match Params.Username.');
-      return res.status(401).send('Unauthorized');
-    }
+    // if (req.body.Username !== req.params.Username) {
+    //   console.log('Token.Username does not match Params.Username.');
+    //   return res.status(401).send('Unauthorized');
+    // }
 
     Users.findOneAndUpdate(
       { Username: req.params.Username },
