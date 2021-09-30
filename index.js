@@ -249,10 +249,10 @@ app.put(
       return res.status(422).json({ errors: errors.array() });
     }
 
-    // check to make sure the token user === the using being updated
-    // if (req.user.Username !== req.params.Username) {
-    //   return res.status(401).json({ Error: 'Unauthorized' });
-    // }
+    //check to make sure the token user === the using being updated
+    if (req.user.Username !== req.params.Username) {
+      return res.status(401).json({ Error: 'Unauthorized' });
+    }
 
     let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate(
@@ -283,7 +283,6 @@ app.post(
   '/users/:Username/movies/:MovieID',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-
     // check to make sure the token user === the using being updated
     // if (req.body.Username !== req.params.Username) {
     //   console.log('Token.Username does not match Params.Username.');
