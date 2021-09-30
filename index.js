@@ -240,7 +240,7 @@ app.put(
     check('Password', 'Password is required').not().isEmpty(),
     check('Email', 'Email does not appear to be valid').isEmail(),
   ],
-  passport.authenticate('jwt', { session: false }),
+  //passport.authenticate('jwt', { session: false }),
   (req, res) => {
     // check the validation object for errors
     let errors = validationResult(req);
