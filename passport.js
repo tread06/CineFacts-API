@@ -52,12 +52,10 @@ passport.use(
     },
     (jwtPayload, callback) => {
       return Users.findById(jwtPayload._id)
-        .then((user) => {
-          console.log(user);
+        .then((user) => {          
           return callback(null, user);
         })
-        .catch((error) => {
-          console.log('Passport find user fail');
+        .catch((error) => {          
           return callback(error);
         });
     }
