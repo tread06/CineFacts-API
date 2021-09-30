@@ -249,12 +249,8 @@ app.put(
     }
 
     // check to make sure the token user === the using being updated
-    console.log('Checking user name/token.');
     if (req.body.Username !== req.params.Username) {
-      console.log('Token.Username does not match Params.Username.');
-      return res
-        .status(401)
-        .json({ User: req.user.Username, param: req.params.Username });
+      return res.status(401).json({ Error: 'Unauthorized' });
     }
 
     let hashedPassword = Users.hashPassword(req.body.Password);
