@@ -56,8 +56,6 @@ passport.use(
           return callback(null, user);
         })
         .catch((error) => {
-          console.log('JWT error');
-          console.log(error);
           return callback(error);
         });
     }
