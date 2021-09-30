@@ -58,7 +58,6 @@ passport.use(
         })
         .catch((error) => {
           console.log('Passport find user fail');
-
           return callback(error);
         });
     }

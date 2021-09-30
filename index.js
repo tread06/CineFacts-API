@@ -253,7 +253,7 @@ app.put(
     //   return res.status(401).json({ Error: 'Unauthorized' });
     // }
     console.log('Decoded user:');
-    console.log(req.user);
+    //console.log(req.user);
 
     let hashedPassword = Users.hashPassword(req.body.Password);
     Users.findOneAndUpdate(
