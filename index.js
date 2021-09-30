@@ -250,6 +250,7 @@ app.put(
     }
 
     //check to make sure the token user === the using being updated
+    //user param added by passport
     if (req.user.Username !== req.params.Username) {
       return res.status(401).json({ Error: 'Unauthorized' });
     }
@@ -283,11 +284,11 @@ app.post(
   '/users/:Username/movies/:MovieID',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // check to make sure the token user === the using being updated
-    // if (req.body.Username !== req.params.Username) {
-    //   console.log('Token.Username does not match Params.Username.');
-    //   return res.status(401).send('Unauthorized');
-    // }
+    //check to make sure the token user === the using being updated
+    //user param added by passport
+    if (req.user.Username !== req.params.Username) {
+      return res.status(401).json({ Error: 'Unauthorized' });
+    }
 
     Users.findOneAndUpdate(
       { Username: req.params.Username },
@@ -312,11 +313,11 @@ app.delete(
   '/users/:Username/movies/:MovieID',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // check to make sure the token user === the using being updated
-    // if (req.body.Username !== req.params.Username) {
-    //   console.log('Token.Username does not match Params.Username.');
-    //   return res.status(401).send('Unauthorized');
-    // }
+    //check to make sure the token user === the using being updated
+    //user param added by passport
+    if (req.user.Username !== req.params.Username) {
+      return res.status(401).json({ Error: 'Unauthorized' });
+    }
 
     Users.findOneAndUpdate(
       { Username: req.params.Username },
@@ -341,11 +342,11 @@ app.delete(
   '/users/:Username',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    // check to make sure the token user === the using being updated
-    // if (req.body.Username !== req.params.Username) {
-    //   console.log('Token.Username does not match Params.Username.');
-    //   return res.status(401).send('Unauthorized');
-    // }
+    //check to make sure the token user === the using being updated
+    //user param added by passport
+    if (req.user.Username !== req.params.Username) {
+      return res.status(401).json({ Error: 'Unauthorized' });
+    }
 
     Users.findOneAndRemove({ Username: req.params.Username })
       .then((user) => {
