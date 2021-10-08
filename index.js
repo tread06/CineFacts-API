@@ -44,7 +44,11 @@ app.use(
 const cors = require('cors');
 //app.use(cors());
 
-let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234'];
+let allowedOrigins = [
+  'http://localhost:8080',
+  'http://localhost:1234',
+  'https://cinefacts.netlify.app',
+];
 app.use(
   cors({
     origin: (origin, callback) => {
