@@ -48,7 +48,7 @@ let allowedOrigins = [
   'http://localhost:8080',
   'http://localhost:1234',
   'http://localhost:420',
-  'http://localhost:10',
+  'localhost/:10',
   'https://cinefacts.netlify.app',
 ];
 app.use(
