@@ -105,11 +105,20 @@
     <div>
         <p class ="description">Log in to recieve JWT</p>
         <div class="method post">POST</div>
-        <span class ="endpoint">https://cinefacts-api.herokuapp.com/login/:Username/:Password</span><br><br>        
+        <span class ="endpoint">https://cinefacts-api.herokuapp.com/login</span><br><br>        
         <table>
             <tr>
                 <td class="label">Request Body</td>
-                <td class="json" >none</td>
+                <td class="json" >
+                    <code>
+                        {<br>
+                            &emsp;"Username": { <br>
+                            &emsp;&emsp;"Username": "username",<br>
+                            &emsp;&emsp;"Pasword": "****",<br>
+                            &emsp;},<br>                            
+                        }
+                    </code>
+                </td>
             </tr>
             <tr>
                 <td>Responce Body</td>
