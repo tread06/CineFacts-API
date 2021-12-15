@@ -22,6 +22,9 @@ mongoose
     console.log(err);
   });
 
+//log on heroku
+const winston = require('winston');
+
 //log requests
 app.use(morgan('common'));
 
@@ -35,7 +38,6 @@ app.use(
 
 //cors
 const cors = require('cors');
-
 let allowedOrigins = [
   'http://localhost:8080',
   'http://localhost:1234',
@@ -104,31 +106,6 @@ app.get(
       });
   }
 );
-
-//update image genre
-// app.patch(
-//   '/movies/:title',
-//   //passport.authenticate('jwt', { session: false }),
-//   (req, res) => {
-//     Movies.findOneAndUpdate(
-//       { Title: req.params.title },
-//       { Genre: req.body.Genre },
-//       { overwrite: false, new: true }
-//     )
-//       .then((movie) => {
-//         if (movie) {
-//           console.log(req.body.ImageURL);
-//           return res.status(200).send(movie);
-//         } else {
-//           return res.status(404).send('movie not found.');
-//         }
-//       })
-//       .catch((error) => {
-//         console.error(error);
-//         res.status(500).send('Error: ' + error);
-//       });
-//   }
-// );
 
 //create new user
 /* Body JSON format
@@ -284,11 +261,16 @@ app.post(
   (req, res) => {
     //check to make sure the token user === the using being updated
     //user param added by passport
+
+    console.log('token user name: ' + req.user.Username);
+    console.log('params user name: ' + req.params.Username);
+
+    const tokenUser = req.user.Username;
+    const paramsUser = req.user.Username;
     if (req.user.Username !== req.params.Username) {
-      console.log('---authorization failure---');
-      console.log('token user name: ' + req.user.Username);
-      console.log('params user name: ' + req.params.Username);
-      return res.status(401).json({ Error: 'Unauthorized' });
+      return res
+        .status(401)
+        .json({ Error: 'Unauthorized', tUser: tokenUser, pUser: paramsUser });
     }
 
     Users.findOneAndUpdate(
