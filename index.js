@@ -290,8 +290,13 @@ app.post(
 
     console.log('token user name: ' + req.user.Username);
     console.log('params user name: ' + req.params.Username);
+
+    const tokenUser = req.user.Username;
+    const paramsUser = req.user.Username;
     if (req.user.Username !== req.params.Username) {
-      return res.status(401).json({ Error: 'Unauthorized' });
+      return res
+        .status(401)
+        .json({ Error: 'Unauthorized', tUser: tokenUser, pUser: paramsUser });
     }
 
     Users.findOneAndUpdate(
@@ -303,13 +308,7 @@ app.post(
       (err, updatedUser) => {
         if (err) {
           console.error(err);
-          res
-            .status(500)
-            .json({
-              Error: err,
-              TokenUser: req.user.Username,
-              ParamUser: req.params.Username,
-            });
+          res.status(500).send('Error: ' + err);
         } else {
           res.json(updatedUser);
         }
