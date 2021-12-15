@@ -22,9 +22,6 @@ mongoose
     console.log(err);
   });
 
-//log on heroku
-const winston = require('winston');
-
 //log requests
 app.use(morgan('common'));
 
