@@ -22,6 +22,9 @@ mongoose
     console.log(err);
   });
 
+//log on heroku
+const winston = require('winston');
+
 //log requests
 app.use(morgan('common'));
 
@@ -286,7 +289,9 @@ app.post(
     //user param added by passport
 
     if (req.user.Username !== req.params.Username) {
-      console.log('---authorization failure---');
+      winston.log('info', '-------Hello log files!------------', {
+        someKey: 'some-value',
+      });
       return res.status(401).json({ Error: 'Unauthorized' });
     }
     console.log('token user name: ' + req.user.Username);

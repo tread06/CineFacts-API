@@ -110,6 +110,7 @@
     "uri-js": "^4.4.1",
     "v8-compile-cache": "^2.3.0",
     "which": "^2.0.2",
+    "winston": "^3.3.3",
     "word-wrap": "^1.2.3",
     "wrappy": "^1.0.2",
     "yallist": "^4.0.0"
