@@ -303,7 +303,13 @@ app.post(
       (err, updatedUser) => {
         if (err) {
           console.error(err);
-          res.status(500).send('Error: ' + err);
+          res
+            .status(500)
+            .json({
+              Error: err,
+              TokenUser: req.user.Username,
+              ParamUser: req.params.Username,
+            });
         } else {
           res.json(updatedUser);
         }
