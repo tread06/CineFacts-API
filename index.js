@@ -284,12 +284,13 @@ app.post(
   (req, res) => {
     //check to make sure the token user === the using being updated
     //user param added by passport
+
     if (req.user.Username !== req.params.Username) {
       console.log('---authorization failure---');
-      console.log('token user name: ' + req.user.Username);
-      console.log('params user name: ' + req.params.Username);
       return res.status(401).json({ Error: 'Unauthorized' });
     }
+    console.log('token user name: ' + req.user.Username);
+    console.log('params user name: ' + req.params.Username);
 
     Users.findOneAndUpdate(
       { Username: req.params.Username },
