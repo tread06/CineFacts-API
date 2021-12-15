@@ -10,13 +10,6 @@ const Movies = Models.Movie;
 const Users = Models.User;
 const app = express();
 
-// mongoose.connect('mongodb://localhost:27017/cinefactsDB', { useNewUrlParser: true, useUnifiedTopology: true })
-// .then(() => {
-//     console.log("Connected");
-// }).catch((err) =>{
-//     console.log(err);
-// });
-
 mongoose
   .connect(process.env.CONNECTION_URI, {
     useNewUrlParser: true,
@@ -42,7 +35,6 @@ app.use(
 
 //cors
 const cors = require('cors');
-//app.use(cors());
 
 let allowedOrigins = [
   'http://localhost:8080',
@@ -293,6 +285,9 @@ app.post(
     //check to make sure the token user === the using being updated
     //user param added by passport
     if (req.user.Username !== req.params.Username) {
+      console.log('---authorization failure---');
+      console.log('token user name: ' + req.user.Username);
+      console.log('params user name: ' + req.params.Username);
       return res.status(401).json({ Error: 'Unauthorized' });
     }
 
