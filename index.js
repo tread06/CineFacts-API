@@ -41,6 +41,7 @@ let allowedOrigins = [
   'http://localhost:420',
   'http://localhost:4200',
   'https://cinefacts.netlify.app',
+  'https://tread06.github.io',
 ];
 app.use(
   cors({
@@ -258,7 +259,7 @@ app.post(
   (req, res) => {
     //check to make sure the token user === the using being updated
     //user param added by passport
-    if (req.user.Username !== req.params.Username) {      
+    if (req.user.Username !== req.params.Username) {
       return res.status(401).json({ Error: 'Unauthorized' });
     }
 
