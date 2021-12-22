@@ -116,7 +116,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "doc": "jsdoc index.js auth.js"
   },
   "repository": {
     "type": "git",
@@ -128,5 +129,8 @@
   "bugs": {
     "url": "https://github.com/tread06/CineFacts-API/issues"
   },
-  "homepage": "https://github.com/tread06/CineFacts-API#readme"
+  "homepage": "https://github.com/tread06/CineFacts-API#readme",
+  "devDependencies": {
+    "jsdoc": "^3.6.7"
+  }
 }
