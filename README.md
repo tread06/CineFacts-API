@@ -17,7 +17,7 @@ Cinefacts is a MERN stack application that allows users to browse movie and user
 Core concepts explored in this project:
 * Create http endpoints using Express.
 * Authentication and authorization using JSON web tokens.
-* CRUD opperations using MongoDB and Mongoose.
+* CRUD operations using MongoDB and Mongoose.
 
 ### Built With
 
